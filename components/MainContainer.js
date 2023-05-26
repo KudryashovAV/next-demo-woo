@@ -1,7 +1,10 @@
 import A from "./A";
 import Head from "next/head";
+import { useSelector } from "react-redux"
 
 const MainContainer = ({ children, keywords }) => {
+  const count = useSelector((state) => state.counter.value)
+
   return (
     <>
       <Head>
@@ -10,7 +13,9 @@ const MainContainer = ({ children, keywords }) => {
       </Head>
       <div className="navbar">
         <A href="/" text="Home page"/>
-        <A href="/users" text="Users page"/>
+        <A href="/products" text="Products page"/>
+        <A href="/cart" text={ "Cart " + count }/>
+
       </div>
       <div>
         { children }
