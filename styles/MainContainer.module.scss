@@ -1,0 +1,25 @@
+.navbar {
+  background: orange;
+  padding: 15px;
+};
+
+.cart {
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+
+.cartValue {
+  font-size: 12px;
+  background-color: #28b8db;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+
+}

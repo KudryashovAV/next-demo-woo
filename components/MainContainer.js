@@ -1,9 +1,11 @@
 import A from "./A";
 import Head from "next/head";
-import { useSelector } from "react-redux"
+import {AiOutlineShoppingCart} from "react-icons/ai"
+import {useCart} from "../hooks/useCart";
+import styled from "../styles/MainContainer.module.scss"
 
 const MainContainer = ({ children, keywords }) => {
-  const count = useSelector((state) => state.counter.value)
+  const { cart } = useCart()
 
   return (
     <>
@@ -11,26 +13,19 @@ const MainContainer = ({ children, keywords }) => {
         <meta keywords={ "hi, hello, bonjour" + keywords }></meta>
         <title>Home Page</title>
       </Head>
-      <div className="navbar">
+      <div className={styled.navbar}>
         <A href="/" text="Home page"/>
         <A href="/products" text="Products page"/>
-        <A href="/cart" text={ "Cart " + count }/>
+        <div className={styled.cart}>
+          <AiOutlineShoppingCart fontSize="30px"/>
+          <span className={styled.cartValue}>{cart.length}</span>
+        </div>
+
 
       </div>
       <div>
         { children }
       </div>
-
-      <style jsx>
-        {
-          `
-            .navbar {
-              background: orange;
-              padding: 15px;
-            };
-          `
-        }
-      </style>
     </>
   )
 }

@@ -3,22 +3,17 @@ import MainContainer from "../../components/MainContainer";
 import WooCommerceApiClient from "../../services/woocommerceApiConfig";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux"
-import { decrement, increment } from "../../services/counters/cartSlice"
+import { useActions } from "../../hooks/useActions";
+import {useCart} from "../../hooks/useCart";
 
 export default function Product({ product }) {
-  const [showRemoveButton, setShowRemoveButton] = useState(false)
-  const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
+  const { cart } = useCart()
 
-  useEffect(() => {
-    if (count > 0) {
-      setShowRemoveButton(true)
-    } else {
-      setShowRemoveButton(false)
-    }
-  }, [count])
+  console.log("cart[id]", cart)
+
+  const isExists = cart.some(item => item.id === product.id)
+
+  const { toggleCart } = useActions()
 
   return (
     <MainContainer keywords={ product.name }>
@@ -43,16 +38,11 @@ export default function Product({ product }) {
         <div>
           <button
             aria-label="Increment value"
-            onClick={() => dispatch(increment())}
+            onClick={() => toggleCart(product)}
           >
-            Add to cart
+            { isExists ? "Remove from" : "Add to"} cart
           </button>
-          {showRemoveButton && (<button
-            aria-label="Decrement value"
-            onClick={() => dispatch(decrement())}
-          >
-            Remove from cart
-          </button>)}
+
         </div>
       </div>
     </MainContainer>
